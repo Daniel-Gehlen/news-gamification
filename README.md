@@ -1,0 +1,177 @@
+# News Gamification Project - Full Stack Structure
+
+This document provides a clear and logical explanation of the **full stack structure** for The News Gamification Project. The project includes both **frontend** and **backend** components, built using modern technologies to deliver a seamless user experience. Below is a detailed breakdown of the structure and how to set it up.
+
+---
+
+## **Technologies Used**
+### **Frontend**
+- **Next.js**: For server-side rendering, routing, and page management.
+- **Tailwind CSS**: For styling and responsive design.
+- **React**: For building interactive UI components.
+
+### **Backend**
+- **Next.js API Routes**: For backend logic and API endpoints.
+- **PostgreSQL**: As the primary database.
+- **Prisma ORM**: For database schema management and queries.
+- **bcrypt**: For password hashing and security.
+- **JSON Web Tokens (JWT)**: For user authentication and session management.
+
+---
+
+## **Project Setup**
+
+### **1. Environment Configuration**
+Before starting, ensure you have the following environment variables set up in a `.env` file:
+
+```plaintext
+DATABASE_URL="postgresql://username:password@localhost:5432/news_gamification"
+JWT_SECRET="your-secret-key"
+```
+
+- `DATABASE_URL`: Connection string for your PostgreSQL database.
+- `JWT_SECRET`: Secret key for signing JWTs.
+
+---
+
+### **2. Install Dependencies**
+Run the following commands to install the required dependencies:
+
+```bash
+# Frontend and shared dependencies
+npm install next react react-dom tailwindcss
+
+# Backend dependencies
+npm install @prisma/client bcrypt jsonwebtoken
+npm install --save-dev prisma @types/bcrypt @types/jsonwebtoken jest @types/jest ts-jest
+```
+
+---
+
+### **3. Initialize Prisma**
+Prisma is used to manage the database schema and perform queries. Follow these steps to set it up:
+
+1. Generate the Prisma client:
+   ```bash
+   npx prisma generate
+   ```
+
+2. Apply the initial database migration:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+3. Seed the database with initial data (optional):
+   ```bash
+   npx ts-node prisma/seed.ts
+   ```
+
+---
+
+## **Frontend Structure**
+
+### **1. `app/` Directory**
+This directory contains the main pages and layout of the application.
+
+- **`layout.tsx`**: The root layout component that wraps all pages and includes the navigation.
+- **`page.tsx`**: The home page with a welcome message and a call-to-action button.
+- **`login/page.tsx`**: The login page with a form for user authentication.
+- **`dashboard/page.tsx`**: The user dashboard showing the user's streak and recent articles.
+- **`admin-dashboard/page.tsx`**: The admin dashboard displaying engagement metrics and a user list.
+
+---
+
+### **2. `components/` Directory**
+This directory contains reusable UI components.
+
+- **`Navigation.tsx`**: The navigation component with links to different pages.
+- **`StreakCounter.tsx`**: Displays the user's current streak.
+- **`RecentArticles.tsx`**: Shows a list of recent articles.
+- **`EngagementMetrics.tsx`**: Displays engagement metrics (used in the admin dashboard).
+- **`UserList.tsx`**: Shows a list of users with their details (used in the admin dashboard).
+
+---
+
+### **3. Navigation Flow**
+- The home page (`/`) has a "Get Started" button that links to the login page.
+- The navigation bar has links to the Dashboard and Admin Dashboard.
+- After logging in, users are redirected to the Dashboard.
+
+---
+
+## **Backend Structure**
+
+### **1. `prisma/` Directory**
+This directory contains files related to database schema and seeding.
+
+- **`schema.prisma`**: Defines the database schema using Prisma's declarative syntax. It includes tables for `Users`, `Articles`, and `Reads`, along with their relationships.
+- **`seed.ts`**: A script to populate the database with initial data for testing and development.
+
+---
+
+### **2. `pages/api/` Directory**
+This directory contains API routes for handling backend logic.
+
+- **`login.ts`**: Handles user authentication. It validates credentials, hashes passwords, and issues JWTs.
+- **`read-article.ts`**: Tracks when a user reads an article and updates their streak.
+- **`user-stats.ts`**: Provides user-specific statistics, such as their reading streak and engagement metrics.
+
+---
+
+### **3. `__tests__/` Directory**
+This directory contains automated tests to ensure the backend functions correctly.
+
+- **`api.test.ts`**: Tests the API routes, including user authentication, article reading, and stats retrieval.
+
+---
+
+### **4. Root Directory Files**
+- **`.env`**: Stores environment variables (not committed to the repository for security reasons).
+- **`package.json`**: Defines project dependencies and scripts.
+
+---
+
+## **Key Features**
+
+### **1. Frontend Features**
+- **Home Page**: Welcomes users and encourages them to log in or get started.
+- **Login Page**: Authenticates users and redirects them to the dashboard.
+- **User Dashboard**: Displays the user's reading streak and recent articles.
+- **Admin Dashboard**: Shows engagement metrics and a list of users.
+
+### **2. Backend Features**
+- **Database Schema**: Designed to support gamification features, including streaks and article tracking.
+- **Authentication**: Secure login using bcrypt and JWTs.
+- **Gamification Logic**: Tracks user activity and updates streaks when articles are read.
+- **Admin Tools**: Provides insights into user engagement and activity.
+
+---
+
+## **Running the Project**
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+2. Run tests:
+   ```bash
+   npm test
+   ```
+
+---
+
+## **Potential Improvements**
+- **Frontend**:
+  - Add animations and transitions for a better user experience.
+  - Implement dark mode and other accessibility features.
+- **Backend**:
+  - Add caching mechanisms (e.g., Redis) for better performance.
+  - Expand the test suite to cover edge cases and additional features.
+- **Both**:
+  - Integrate a CI/CD pipeline for automated testing and deployment.
+  - Add analytics for tracking user behavior and engagement.
+
+---
+
+This full stack structure provides a solid foundation for The News Gamification Project. It is modular, scalable, and ready for further development. Whether you're building out the frontend or expanding the backend, this setup ensures a smooth development process.
