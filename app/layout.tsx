@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "The News Gamification",
   description: "Increase reader engagement with gamification",
-    generator: 'v0.dev'
+    generator: 'dev'
 }
 
 export default function RootLayout({
