@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
@@ -51,6 +51,7 @@
     "lucide-react": "^0.454.0",
     "next": "^14.2.16",
     "next-themes": "^0.4.4",
+    "prisma": "^6.5.0",
     "react": "^18",
     "react-day-picker": "^9.5.1",
     "react-dom": "^18",
@@ -62,6 +63,9 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",
     "zod": "^3.24.1"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   },
   "devDependencies": {
     "@types/node": "^22",
